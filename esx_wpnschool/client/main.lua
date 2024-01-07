@@ -76,8 +76,6 @@ local blip = AddBlipForCoord(Config.Coord)
 	BeginTextCommandSetBlipName("STRING")
 	AddTextComponentSubstringPlayerName(TranslateCap('driving_school_blip'))
 	EndTextCommandSetBlipName(blip)
-	else
-		RemoveBlip(blip)
 	end
 end)
 
@@ -85,15 +83,12 @@ end)
 
 
 
-CreateThread(function()
-	while true do
-		local distance = #(GetEntityCoords(PlayerPedId()) - Config.Coord)
-		Wait(0)
-		if distance <= 3.0 then
+
 			exports.ox_target:addSphereZone({
 				coords = Config.Coord,
 				radius = 1,
 				debug = drawZones,
+				distance = 3,
 				options = {
 					{
 						name = 'otevrit',
@@ -103,11 +98,7 @@ CreateThread(function()
 					}
 				}
 			})
-			Wait(1000000000)
-			
-		end
-	end
-end)
+
 
  RegisterNetEvent("tbx_necoidk:otevritmenu2", function()
 	ESX.TriggerServerCallback('esx_wpnschool:canYouPay', function(haveMoney)
